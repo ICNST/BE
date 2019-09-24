@@ -56,9 +56,31 @@ router.put('/:id', async (req, res) => {
         delete updatedUser.password;
         res.status(200).json(updatedUser);
       } else {
-        res.status(404).json({ message: 'No user of this ID exists'});
+        res.status(404).json({ message: 'User with this ID does not exist'});
       }
     } catch (error) {
       res.status(500).json({ message: 'Error approving user'});
     }
   })
+
+  //delete user
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const toDelete = await userDb.findUserBy({ id });
+      const deleted = await userDb.deleteUser(id);
+  
+      if (deleted) {
+        delete toDelete.password;
+        res.status(200).json({removed: toDelete});
+      } else {
+        res.status(404).json({ message: 'User with this ID does not exist'});
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting user'});
+    }
+  })
+  
+  
+  module.exports = router;
