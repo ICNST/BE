@@ -1,4 +1,4 @@
-const db = require('../../data/data-config');
+const db = require("../data/data-config");
 
 module.exports = {
   findUsers,
