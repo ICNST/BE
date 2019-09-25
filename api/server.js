@@ -17,6 +17,7 @@ server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use('/api/', authRouter);
+//server.use("/api/admin", adminAuthRouter);
 server.use('/api/users', authenticate, userRouter);
 
 module.exports = server;
