@@ -1,4 +1,4 @@
-const db = require("../index");
+const db = require('../../index');
 
 const get = id => {
   return db("screenings as s")

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Screening = require("../models/db/screenings");
+const Screening = require('./screenings-model');
 
 router
   .route("/:child_id")
