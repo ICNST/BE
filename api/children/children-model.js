@@ -1,4 +1,4 @@
-const db = require("../index");
+const db = require('../../index');
 const moment = require("moment");
 
 const get = (community_id, id) => {

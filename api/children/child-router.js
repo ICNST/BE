@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Child = require('../children');
+const Child = require('./children-model');
 //alters what child endpoint is expecting
 router.route("/").post(async (req, res) => {
   const child = req.body;
