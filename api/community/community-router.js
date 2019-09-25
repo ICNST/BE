@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const Community = require("../models/db/communities");
-const Child = require("../models/db/children");
+const Community = require("../community");
+const Child = require("../children");
 //endpoint and methods
 router
   .route("/:country_id")
