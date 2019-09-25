@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -22,25 +20,30 @@ router.post('/register', validateRegister, async (req, res) => {
         email: newUser.email
       });
     } catch (error) {
-      res.status(500).json({ message: 'Error registering user', error});
+      res.status(500).json({ message: 'Error registering user'});
     }
   })
 
 
   router.post('/login', validateLogin, async (req, res) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
   
     try {
       const user = await userDb.findUserBy({ email });
       if (user && bcrypt.compareSync(password, user.password)) {
+        if (user.isAdmin) {
           const token = generateToken(user);
           res.status(200).json({
             message: `hello ${user.firstName}`,
             userId: user.id, 
             email: user.email,
             firstName: user.firstName, 
+            isAdmin: user.isAdmin,
             token
           })
+        } else {
+          res.status(401).json({ message: 'User approval status pending' });
+        }
       } else {
         res.status(401).json({ message: 'Invalid credentials' });
       }
@@ -52,7 +55,7 @@ router.post('/register', validateRegister, async (req, res) => {
   //middleware and misc function
   function validateRegister(req, res, next) {
     const user = req.body;
-    if (!user.country || !user.email || !user.password || !user.firstName || !user.lastName) {
+    if (!user.email || !user.password || !user.firstName || !user.lastName) {
       res.status(400).json({ message: 'Email, full name, and password are required' });
     } else {
       if (!validator.isEmail(user.email)) {
