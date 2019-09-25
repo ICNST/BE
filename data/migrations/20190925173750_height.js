@@ -1,9 +1,9 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable("weight", tbl => {
+    return knex.schema.createTable("height", tbl => {
         tbl.increments();
         tbl.string("date").unique().notNullable();
-        tbl.integer("weight").notNullable();
+        tbl.integer("height").notNullable();
         tbl.integer("child_id")
             .unsigned()
             .notNullable()
@@ -15,5 +15,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("weight");
+    return knex.schema.dropTableIfExists("height");
 };
