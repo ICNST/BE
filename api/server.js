@@ -26,7 +26,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use('/api/', authRouter);
 server.use('/api/users', authenticate, userRouter);
 server.use('/api/country', countryRouter);
-server.use('/api/', communityRouter);
+server.use('/api/community', communityRouter);
 server.use('/api/', screeningRouter);
 server.use('/api/', childRouter);
 module.exports = server;

@@ -2,6 +2,16 @@ const router = require("express").Router();
 const Community = require("../community/communities-model");
 const Child = require('../children/child-router');
 //endpoint and methods
+
+router.get("/", async function (req, res) {
+    const communities = await Community.getAll();
+    try {
+        res.status(200).json(communities);
+    } catch (error) {
+        res.status(500).json({"message": "Unable to fetch communities.", error});
+    }
+});
+
 router
   .route("/:country_id")
   .get(async (req, res) => {
