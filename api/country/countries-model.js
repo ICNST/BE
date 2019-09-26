@@ -1,21 +1,17 @@
-const db = require('../../index');
+const db = require('../../data/data-config.js');
 
 const get = () => {
-  return db("countries AS cn").select(
-    "cn.id AS id",
-    "cn.name AS country",
-    "cn.code AS code"
-  );
+  return db("country");
 };
 
 async function updateCountry(id, changes) {
-  return db('countries').where({ id }).update(changes).then(() => findCountryBy({ id }));
+  return db('country').where({ id }).update(changes).then(() => findCountryBy({ id }));
 }
 
 
 const getActive = countryCode => {
   if (countryCode) {
-    return db("countries AS cn")
+    return db("country AS cn")
       .select("cn.id as id", "cn.name AS country")
       .count("cm.id AS communities")
       .leftOuterJoin("communities AS cm", { "cm.country_id": "cn.id" })
@@ -23,7 +19,7 @@ const getActive = countryCode => {
       .orderBy("communities", "desc")
       .where({ "cn.code": countryCode });
   }
-  return db("countries AS cn")
+  return db("country AS cn")
     .select("cn.id as id", "cn.name AS country")
     .count("cm.id AS communities")
     .join("communities AS cm", { "cm.country_id": "cn.id" })
