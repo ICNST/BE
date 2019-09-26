@@ -26,7 +26,7 @@ function findPendingUsers() {
   return db('users').where('isAdmin', false).select('id', 'email', 'firstName', 'lastName', 'isAdmin').orderBy('id');
 }
 
-function updateUser(id, changes) {
+async function updateUser(id, changes) {
   return db('users').where({ id }).update(changes).then(() => findUserBy({ id }));
 }
 

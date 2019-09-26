@@ -8,6 +8,11 @@ const get = () => {
   );
 };
 
+async function updateCountry(id, changes) {
+  return db('countries').where({ id }).update(changes).then(() => findCountryBy({ id }));
+}
+
+
 const getActive = countryCode => {
   if (countryCode) {
     return db("countries AS cn")

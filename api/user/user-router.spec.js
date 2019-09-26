@@ -19,7 +19,7 @@ describe('user-router', () => {
   })
   
   describe('GET /api/users', () => {
-    it('should return an arry of users', () => {
+    it('should return an arry of users', () => {           //array of users
       return request(server)
       .get('/api/users')
       .set('Authorization', token)
@@ -31,7 +31,7 @@ describe('user-router', () => {
   })
 
   describe('GET /api/users/pending', () => {
-    it('should return an arry of pending users', () => {
+    it('should return an arry of pending users', () => {     //pending
       return request(server)
       .get('/api/users/pending')
       .set('Authorization', token)
@@ -43,7 +43,7 @@ describe('user-router', () => {
   })
 
   describe('GET /api/users/:id', () => {
-    it('should return a single user', () => {
+    it('should return a single user', () => {         // there can only be one
       return request(server)
       .get('/api/users/1')
       .set('Authorization', token)
