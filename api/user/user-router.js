@@ -58,7 +58,8 @@ router.put('/:id', async (req, res) => {
         updates.email = req.body.email;
     }
     if(req.body.password && typeof(req.body.password) === "string") {
-        updates.password = bcrypt.hashSync(password, 12);
+        const hash = bcrypt.hashSync(req.body.password, 12);
+        updates.password = hash;
     }
     if(req.body.country && typeof(req.body.country) === "string") {
         updates.country = req.body.country;
