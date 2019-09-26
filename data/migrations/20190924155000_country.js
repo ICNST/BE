@@ -6,7 +6,8 @@ exports.up = function(knex) {
             .unique()
             .notNullable()
             .references("country")
-            .inTable("users");
+            .inTable("users")
+            .onUpdate("CASCADE");
     });
 }
 

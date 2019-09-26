@@ -1,0 +1,1 @@
+email is hardcoded in the scripts. email must exist in the db in order to use the scripts
