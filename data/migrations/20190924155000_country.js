@@ -5,8 +5,6 @@ exports.up = function(knex) {
         tbl.string("name", 128)
             .unique()
             .notNullable()
-            .references("country")
-            .inTable("users")
     });
 }
 

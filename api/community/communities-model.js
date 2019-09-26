@@ -1,5 +1,10 @@
-const db = require("../../index");
+const db = require("../../data/data-config.js");
 //add, remove method
+
+function getAll() {
+    return db("community");
+}
+
 const get = (country_id, id) => {
   if (id) {
     return db("communities AS cm")
@@ -13,14 +18,12 @@ const get = (country_id, id) => {
       .where({ "cm.id": id })
       .first();
   }
-  return db("communities AS cm")
+  return db("community AS cm")
     .select(
       "cm.id as id",
-      "cm.name AS community",
-      "cm.city AS city",
-      "cn.name AS country"
+      "cm.name AS community"
     )
-    .join("countries AS cn", { "cn.id": "cm.country_id" })
+    .join("country AS cn", { "cn.id": "cm.country_id" })
     .where({ "cm.country_id": country_id });
 };
 
@@ -44,6 +47,7 @@ const remove = (id) => {
 };
 
 module.exports = {
+  getAll,
   get,
   create,
   update,
