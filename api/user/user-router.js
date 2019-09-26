@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require("bcryptjs");
 const userDb = require('./user-model');
 const router = express.Router();
 
@@ -46,10 +47,22 @@ router.get('/:id', async (req, res) => {
   //approve user
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const updates = {
-      isAdmin: true,
+    const updates = {};
+    if(req.body.firstName && typeof(req.body.firstName) === "string") { 
+        updates.firstName = req.body.firstName;
     }
-  
+    if(req.body.lastName && typeof(req.body.lastName) === "string") {
+        updates.lastName = req.body.lastName;
+    }
+    if(req.body.email && typeof(req.body.email) === "string") { 
+        updates.email = req.body.email;
+    }
+    if(req.body.password && typeof(req.body.password) === "string") {
+        updates.password = bcrypt.hashSync(password, 12);
+    }
+    if(req.body.country && typeof(req.body.country) === "string") {
+        updates.country = req.body.country;
+    }
     try {
       const updatedUser = await userDb.updateUser(id, updates);
       if (updatedUser) {
