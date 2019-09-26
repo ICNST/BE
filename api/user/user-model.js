@@ -10,7 +10,7 @@ module.exports = {
 }
 
 function findUsers() {
-  return db('users').select('id', 'email', 'firstName', 'lastName', 'isAdmin').orderBy('id');
+  return db('users').select('id', 'email', 'firstName', 'lastName').orderBy('id');
 }
 
 function findUserBy(filter) {
