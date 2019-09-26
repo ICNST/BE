@@ -14,6 +14,25 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.put('./:id', async (req, res) => {
+  const { id } = req.params;
+  const updates = {
+    isAdmin: true,
+  }
+
+  try {
+    const updatedCountry = await userDb.updateCountry(id, updates);
+    if (updatedCountry) {
+      delete updatedCountry.password;
+      res.status(200).json(updatedCountry);
+    } else {
+      res.status(404).json({ message: 'ID does not exist'});
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error approving'});
+  }
+})
+
 router.get('/active', async (req, res) => {
   const countryCode = req.accessCountry
   try {
